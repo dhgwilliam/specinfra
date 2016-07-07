@@ -42,7 +42,10 @@ module Specinfra
           shell << " -l"
         end
 
-        cmd = "#{shell} -c #{cmd.to_s.shellescape}"
+        unless get_config(:disable_shell)
+          cmd = "#{shell} -c #{cmd.to_s.shellescape}"
+          puts "shell enabled: #{cmd}"
+        end
 
         path = get_config(:path)
         if path
